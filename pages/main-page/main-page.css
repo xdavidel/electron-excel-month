@@ -1,0 +1,45 @@
+body{
+    padding: 0;
+    margin: 0;
+    background: #2c2828;
+    color: #fefefe;
+}
+
+.header{
+    padding: 5px;
+    margin: 3px;
+    font-size: 2.3em;
+}
+
+.selection{
+    padding:5px;
+    margin: 3px;
+    
+}
+
+.selection:hover{
+    opacity: 0.9;
+}
+
+.selection input{
+    padding: 10px;
+    display: block;
+    width: 80%;
+    border: none
+}
+
+.selection label{
+    min-width: 600px;
+}
+
+#generateBtn{
+    display: block;
+    border: solid #15c07e 3px;
+    padding: 10px;
+    margin: 7px;
+    background-color: #31e09d;
+}
+
+#generateBtn:hover{
+    opacity: 0.9;
+}

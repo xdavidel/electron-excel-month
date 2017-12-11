@@ -4,19 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Exceller</title>
+    <link rel="stylesheet" href="./main-page.css">
 </head>
 
 <body>
-    <h1>Select Month and Year</h1>
+    <h1 class="header">Select Month and Year</h1>
     <div class="container">
         <form>
-            <div class="month-selction">
+            <div class="selection">
                 <label for="month-picker">Month</label>
                 <input type="number" name="month-picker" id="month-picker" placeholder="Select Month..." min="1" max="12">
             </div>
-            <div class="year-selction">
+            <div class="selection">
                 <label for="year-picker">Year</label>
                 <input type="number" name="year-picker" id="year-picker" placeholder="Select Year...">
+            </div>
+            <div class="selection">
+                <label for="year-picker">Travels Funds</label>
+                <input type="number" name="year-picker" id="travel-picker" placeholder="Select Travels Funds...">
             </div>
 
             <input id="generateBtn" type="submit" value="Generate Month">
