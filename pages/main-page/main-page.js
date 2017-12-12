@@ -51,13 +51,34 @@ generateBtn.addEventListener('click', event => {
         }
     });
 
+    let separatorStyle = workbook.createStyle({
+        fill: {
+            type: 'pattern',
+            patternType: 'solid',
+            fgColor: '#121212'
+        }
+    })
 
-    // write table headers
-    for (let col = 0; col < COLUMNS.length; col++) {
-        ws.cell(1, col + 1).string(COLUMNS[col]).style(headerStyle)
-    }
+    let sumStyle = workbook.createStyle({
+        font: {
+            color: '#FF0800',
+            size: 12,
+            bold: true
+        }
+
+    })
 
     let { numOfDays, firstDay } = monthInfo(monthPicker.value, yearPicker.value)
+
+    for (let col = 0; col < COLUMNS.length; col++) {
+
+        // write table headers
+        ws.cell(1, col + 1).string(COLUMNS[col]).style(headerStyle)
+
+        // write table end line
+        ws.cell(numOfDays + 2, col + 1).string('').style(separatorStyle)
+    }
+
     for (let day = 1; day <= numOfDays; day++) {
         if (firstDay % 7 > 4) {
             ws.cell(day + 1, 1).string(DAYS_OF_WEEK[firstDay % 7]).style(weekendStyle) // days of week for weekend
@@ -74,6 +95,13 @@ generateBtn.addEventListener('click', event => {
         ws.cell(day + 1, 5).formula(`${travelBase}*2*IF(C${day + 1}>0,1,0)`)
     }
 
+    // write table sums
+    for (let col = 2; col < COLUMNS.length - 1; col++) {
+        let currentColumn = getExcelColumn(col + 1)
+        ws.cell(numOfDays + 3, col + 1).formula(`SUM(${currentColumn}2:${currentColumn}${numOfDays + 1})`).style(sumStyle)
+    }
+
+
 
     workbook.write('Excel.xlsx');
 })
@@ -87,4 +115,10 @@ function monthInfo(month, year) {
         numOfDays: numOfDays,
         firstDay: date.getDay()
     }
+}
+
+function getExcelColumn(num) {
+    let char = 'A'
+
+    return String.fromCharCode(char.charCodeAt(0) + num - 1)
 }
