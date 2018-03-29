@@ -92,7 +92,7 @@ generateBtn.addEventListener('click', event => {
         ws.cell(day + 1, 4).formula(`IF(${FULL_HOURS}-C${day + 1}<0,C${day + 1}-${FULL_HOURS},0)`)
 
         // write travels formula
-        ws.cell(day + 1, 5).formula(`${travelBase}*2*IF(C${day + 1}>0,1,0)`)
+        ws.cell(day + 1, 5).formula(`${travelBase}*IF(C${day + 1}>0,1,0)`)
     }
 
     // write table sums
