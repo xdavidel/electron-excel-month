@@ -5,7 +5,7 @@ const monthPicker = document.getElementById('month-picker')
 const generateBtn = document.getElementById('generateBtn')
 const travelPicker = document.getElementById('travel-picker')
 
-const COLUMNS = ['Day in Week', 'Day of Month', 'Hours', 'Extra Hours', 'Travels', 'Notes']
+const COLUMNS = ['Day in Week', 'Day of Month', 'Hours', '120%', '150%', 'Travels', 'Notes']
 const DAYS_OF_WEEK = { 0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday" }
 const FULL_HOURS = 9
 
@@ -89,10 +89,13 @@ generateBtn.addEventListener('click', event => {
         firstDay++
 
         // write extra hours formula
-        ws.cell(day + 1, 4).formula(`IF(${FULL_HOURS}-C${day + 1}<0,C${day + 1}-${FULL_HOURS},0)`)
+        ws.cell(day + 1, 4).formula(`IF(${FULL_HOURS}-C${day + 1}<0,IF(C${day + 1}-${FULL_HOURS}>2,2,C${day + 1}-${FULL_HOURS}),0)`)
+
+        // write 150% formula
+        ws.cell(day + 1, 5).formula(`IF(C${day + 1}-${FULL_HOURS}>2,C${day + 1}-${FULL_HOURS}-2,0)`)
 
         // write travels formula
-        ws.cell(day + 1, 5).formula(`${travelBase}*IF(C${day + 1}>0,1,0)`)
+        ws.cell(day + 1, 6).formula(`${travelBase}*IF(C${day + 1}>0,1,0)`)
     }
 
     // write table sums
@@ -103,7 +106,7 @@ generateBtn.addEventListener('click', event => {
 
 
 
-    workbook.write('Excel.xlsx');
+    workbook.write(`${yearPicker.value}_${monthPicker.value}.xlsx`);
 })
 
 
